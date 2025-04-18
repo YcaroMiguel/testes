@@ -9,6 +9,170 @@
     }body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px #00000077;
+}
+
+.card, .formulario {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.option:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.option button {
+  padding: 0.5rem 1rem;
+  background-color: #00c6ff;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  transition: background 0.3s;
+  margin-left: 10px;
+}
+
+.option button:hover {
+  background-color: #0072ff;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  width: 70%;
+  margin-right: 1rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+.formulario button {
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.formulario button:hover {
+  background-color: #218838;
+}
+
+.link-estatisticas {
+  text-decoration: none;
+  color: #00c6ff;
+  font-weight: bold;
+  margin-top: 1rem;
+  transition: color 0.3s;
+}
+
+.link-estatisticas:hover {
+  color: #00ffff;
+}
+
+  </style>
+</head>
+<body>
+  <h1>VotSis - Votação para Líder de Turma</h1>  <div class="formulario">
+    <input type="text" id="novoCandidato" placeholder="Nome do candidato">
+    <button onclick="adicionarCandidato()">Adicionar</button>
+  </div>  <div class="card" id="candidatos"></div><a href="estatisticas.html" target="_blank" class="link-estatisticas">Ver Estatísticas</a>
+
+  <script>
+    let votos = JSON.parse(localStorage.getItem('votos')) || {
+      Ycaro: 0,
+      Hiel: 0
+    };
+
+    function salvarDados() {
+      localStorage.setItem('votos', JSON.stringify(votos));
+    }
+
+    function renderizarCandidatos() {
+      const container = document.getElementById('candidatos');
+      container.innerHTML = '';
+
+      for (let candidato in votos) {
+        const div = document.createElement('div');
+        div.className = 'option';
+        div.innerHTML = `
+          <span>${candidato}</span>
+          <div>
+            <button onclick="votar('${candidato}')">Votar</button>
+            <button style="background:#dc3545" onclick="removerCandidato('${candidato}')">Remover</button>
+          </div>
+        `;
+        container.appendChild(div);
+      }
+    }
+
+    function adicionarCandidato() {
+      const input = document.getElementById('novoCandidato');
+      const nome = input.value.trim();
+      if (nome && !votos[nome]) {
+        votos[nome] = 0;
+        input.value = '';
+        salvarDados();
+        renderizarCandidatos();
+      }
+    }
+
+    function removerCandidato(nome) {
+      delete votos[nome];
+      salvarDados();
+      renderizarCandidatos();
+    }
+
+    function votar(candidato) {
+      votos[candidato]++;
+      salvarDados();
+      alert(`Voto confirmado para ${candidato}!`);
+    }
+
+    renderizarCandidatos();
+  </script></body>
+</html> html><html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VotSis - Sistema de Votação</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: #fff;
   display: flex;
