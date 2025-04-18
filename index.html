@@ -9,7 +9,7 @@
     }body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  background: radial-gradient(circle at center, #1b2735, #090a0f);
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -19,18 +19,18 @@
 }
 
 h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px #00000077;
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px #00c6ff;
 }
 
-.card, .formulario {
-  background: rgba(255, 255, 255, 0.08);
+.card, .formulario, .teclado {
+  background: rgba(255, 255, 255, 0.05);
   padding: 2rem;
   border-radius: 20px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-  max-width: 600px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  max-width: 500px;
   width: 100%;
   margin-bottom: 2rem;
 }
@@ -66,6 +66,11 @@ h1 {
   background-color: #0072ff;
 }
 
+.result {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
 input[type="text"] {
   padding: 0.5rem;
   width: 70%;
@@ -89,16 +94,60 @@ input[type="text"] {
   background-color: #218838;
 }
 
-.link-estatisticas {
-  text-decoration: none;
-  color: #00c6ff;
-  font-weight: bold;
-  margin-top: 1rem;
-  transition: color 0.3s;
+.teclado {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  text-align: center;
 }
 
-.link-estatisticas:hover {
-  color: #00ffff;
+.teclado button {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.teclado button:hover {
+  background-color: #555;
+}
+
+.teclado-control {
+  grid-column: span 3;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.teclado-control button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.confirma { background-color: #28a745; }
+.confirma:hover { background-color: #218838; }
+.branco { background-color: #17a2b8; }
+.branco:hover { background-color: #138496; }
+.corrige { background-color: #dc3545; }
+.corrige:hover { background-color: #c82333; }
+
+#displayNumero {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #111;
+  border-radius: 10px;
 }
 
   </style>
@@ -107,34 +156,49 @@ input[type="text"] {
   <h1>VotSis - Votação para Líder de Turma</h1>  <div class="formulario">
     <input type="text" id="novoCandidato" placeholder="Nome do candidato">
     <button onclick="adicionarCandidato()">Adicionar</button>
-  </div>  <div class="card" id="candidatos"></div><a href="estatisticas.html" target="_blank" class="link-estatisticas">Ver Estatísticas</a>
+  </div>  <div class="card" id="candidatos"></div>  <div class="card teclado">
+    <div id="displayNumero">_</div>
+    <button onclick="digitarNumero('1')">1</button>
+    <button onclick="digitarNumero('2')">2</button>
+    <button onclick="digitarNumero('3')">3</button>
+    <button onclick="digitarNumero('4')">4</button>
+    <button onclick="digitarNumero('5')">5</button>
+    <button onclick="digitarNumero('6')">6</button>
+    <button onclick="digitarNumero('7')">7</button>
+    <button onclick="digitarNumero('8')">8</button>
+    <button onclick="digitarNumero('9')">9</button>
+    <button onclick="digitarNumero('0')">0</button><div class="teclado-control">
+  <button class="confirma" onclick="confirmarVoto()">CONFIRMA</button>
+  <button class="branco" onclick="votoBranco()">BRANCO</button>
+  <button class="corrige" onclick="corrigir()">CORRIGE</button>
+</div>
 
-  <script>
-    let votos = JSON.parse(localStorage.getItem('votos')) || {
-      Ycaro: 0,
-      Hiel: 0
-    };
-
-    function salvarDados() {
-      localStorage.setItem('votos', JSON.stringify(votos));
-    }
+  </div>  <div class="card result" id="resultado"></div>  <script>
+    let votos = {};
+    let numeroDigitado = '';
+    const candidatosArray = [];
 
     function renderizarCandidatos() {
       const container = document.getElementById('candidatos');
       container.innerHTML = '';
+      candidatosArray.length = 0;
 
+      let i = 1;
       for (let candidato in votos) {
+        candidatosArray.push(candidato);
         const div = document.createElement('div');
         div.className = 'option';
         div.innerHTML = `
-          <span>${candidato}</span>
+          <span><strong>[${i}]</strong> ${candidato}</span>
           <div>
             <button onclick="votar('${candidato}')">Votar</button>
             <button style="background:#dc3545" onclick="removerCandidato('${candidato}')">Remover</button>
           </div>
         `;
         container.appendChild(div);
+        i++;
       }
+      mostrarResultado();
     }
 
     function adicionarCandidato() {
@@ -143,23 +207,70 @@ input[type="text"] {
       if (nome && !votos[nome]) {
         votos[nome] = 0;
         input.value = '';
-        salvarDados();
         renderizarCandidatos();
       }
     }
 
     function removerCandidato(nome) {
       delete votos[nome];
-      salvarDados();
       renderizarCandidatos();
     }
 
     function votar(candidato) {
       votos[candidato]++;
-      salvarDados();
-      alert(`Voto confirmado para ${candidato}!`);
+      mostrarResultado();
     }
 
+    function mostrarResultado() {
+      const totalVotos = Object.values(votos).reduce((a, b) => a + b, 0);
+      let resultadoHTML = '<strong>Estatísticas da Votação:</strong><br>';
+
+      for (let candidato in votos) {
+        const porcentagem = totalVotos > 0 ? ((votos[candidato] / totalVotos) * 100).toFixed(1) : 0;
+        resultadoHTML += `${candidato}: ${votos[candidato]} voto(s) - ${porcentagem}%<br>`;
+      }
+
+      resultadoHTML += `<br><strong>Total de votos:</strong> ${totalVotos}`;
+      document.getElementById('resultado').innerHTML = resultadoHTML;
+    }
+
+    function digitarNumero(n) {
+      if (numeroDigitado.length < 2) {
+        numeroDigitado += n;
+        atualizarDisplay();
+      }
+    }
+
+    function atualizarDisplay() {
+      document.getElementById('displayNumero').textContent = numeroDigitado || '_';
+    }
+
+    function corrigir() {
+      numeroDigitado = '';
+      atualizarDisplay();
+    }
+
+    function votoBranco() {
+      alert('Voto em BRANCO computado.');
+      corrigir();
+    }
+
+    function confirmarVoto() {
+      const index = parseInt(numeroDigitado) - 1;
+      const candidato = candidatosArray[index];
+      if (candidato) {
+        votar(candidato);
+        alert(`Voto computado para ${candidato}`);
+      } else {
+        alert('Número inválido.');
+      }
+      corrigir();
+    }
+
+    votos = {
+      Ycaro: 0,
+      Hiel: 0
+    };
     renderizarCandidatos();
   </script></body>
 </html>
