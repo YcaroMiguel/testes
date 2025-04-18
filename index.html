@@ -1,54 +1,166 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Campanha 11 - Ycaro & Hiel</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VotSis - Sistema de Votação</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.card, .formulario {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  max-width: 500px;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.option:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+.option button {
+  padding: 0.5rem 1rem;
+  background-color: #00c6ff;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  transition: background 0.3s;
+  margin-left: 10px;
+}
+
+.option button:hover {
+  background-color: #0072ff;
+}
+
+.result {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  width: 70%;
+  margin-right: 1rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+.formulario button {
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.formulario button:hover {
+  background-color: #218838;
+}
+
+  </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Campanha 11: Ycaro & Hiel</h1>
-      <p>Liderança com responsabilidade, escuta e ação.</p>
-    </div>
-  </header>
+  <h1>VotSis - Votação para Líder de Turma</h1>  <div class="formulario">
+    <input type="text" id="novoCandidato" placeholder="Nome do candidato">
+    <button onclick="adicionarCandidato()">Adicionar</button>
+  </div>  <div class="card" id="candidatos"></div>
+  <div class="card result" id="resultado"></div>  <script>
+    let votos = {};
 
-  <section class="intro">
-    <div class="container">
-      <h2>Por que queremos representar você?</h2>
-      <p>Não somos candidatos para aparecer. Somos alunos que enxergam o que precisa melhorar e que acreditam que podemos transformar o ambiente escolar com união, responsabilidade e diálogo.</p>
-    </div>
-  </section>
+    function renderizarCandidatos() {
+      const container = document.getElementById('candidatos');
+      container.innerHTML = '';
 
-  <section class="propostas">
-    <div class="container">
-      <h2>Propostas</h2>
-      <ul>
-        <li>Promover escuta ativa entre alunos e professores</li>
-        <li>Buscar melhorias nos momentos livres e no ambiente da sala</li>
-        <li>Realizar projetos e campanhas que valorizem os alunos</li>
-        <li>Estimular o respeito, a empatia e o protagonismo estudantil</li>
-        <li>Defender os interesses da turma de forma ética e transparente</li>
-      </ul>
-    </div>
-  </section>
+      for (let candidato in votos) {
+        const div = document.createElement('div');
+        div.className = 'option';
+        div.innerHTML = `
+          <span>${candidato}</span>
+          <div>
+            <button onclick="votar('${candidato}')">Votar</button>
+            <button style="background:#dc3545" onclick="removerCandidato('${candidato}')">Remover</button>
+          </div>
+        `;
+        container.appendChild(div);
+      }
+      mostrarResultado();
+    }
 
-  <section class="apoie">
-    <div class="container">
-      <h2>O seu voto faz a diferença</h2>
-      <p>Confiar na nossa campanha é confiar em alguém que vai ouvir, agir com seriedade e representar você com responsabilidade. Vote 11. Vote consciente. Vote Ycaro & Hiel.</p>
-      <button onclick="mostrarMensagem()">Apoiar agora</button>
-    </div>
-  </section>
+    function adicionarCandidato() {
+      const input = document.getElementById('novoCandidato');
+      const nome = input.value.trim();
+      if (nome && !votos[nome]) {
+        votos[nome] = 0;
+        input.value = '';
+        renderizarCandidatos();
+      }
+    }
 
-  <footer>
-    <div class="container">
-      <p>Campanha desenvolvida com dedicação por Ycaro & Hiel.</p>
-    </div>
-  </footer>
+    function removerCandidato(nome) {
+      delete votos[nome];
+      renderizarCandidatos();
+    }
 
-  <script src="script.js"></script>
-</body>
+    function votar(candidato) {
+      votos[candidato]++;
+      mostrarResultado();
+    }
+
+    function mostrarResultado() {
+      const totalVotos = Object.values(votos).reduce((a, b) => a + b, 0);
+      let resultadoHTML = '<strong>Estatísticas da Votação:</strong><br>';
+
+      for (let candidato in votos) {
+        const porcentagem = totalVotos > 0 ? ((votos[candidato] / totalVotos) * 100).toFixed(1) : 0;
+        resultadoHTML += `${candidato}: ${votos[candidato]} voto(s) - ${porcentagem}%<br>`;
+      }
+
+      resultadoHTML += `<br><strong>Total de votos:</strong> ${totalVotos}`;
+      document.getElementById('resultado').innerHTML = resultadoHTML;
+    }
+
+    // Inicializar com alguns candidatos padrões
+    votos = {
+      Ycaro: 0,
+      Hiel: 0
+    };
+    renderizarCandidatos();
+  </script></body>
 </html>
