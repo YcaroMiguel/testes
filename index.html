@@ -1,192 +1,22 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VotSis - Sistema de Votação</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: radial-gradient(circle at center, #1b2735, #090a0f);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 2.8rem;
-  margin-bottom: 2rem;
-  text-shadow: 0 0 10px #00c6ff;
-}
-
-.card, .teclado {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2rem;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-  max-width: 500px;
-  width: 100%;
-  margin-bottom: 2rem;
-}
-
-.result {
-  font-size: 1.2rem;
-  line-height: 1.5;
-}
-
-.teclado {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  text-align: center;
-}
-
-.teclado button {
-  padding: 1rem;
-  font-size: 1.5rem;
-  border-radius: 12px;
-  border: none;
-  background-color: #333;
-  color: #fff;
-  transition: 0.3s;
-}
-
-.teclado button:hover {
-  background-color: #555;
-}
-
-.teclado-control {
-  grid-column: span 3;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.teclado-control button {
-  flex: 1;
-  margin: 0 5px;
-  padding: 0.8rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: none;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.confirma {
-  background-color: #28a745;
-  color: #fff;
-}
-.confirma:hover {
-  background-color: #218838;
-}
-
-.branco {
-  background-color: #fff;
-  color: #000;
-}
-.branco:hover {
-  background-color: #e0e0e0;
-}
-
-.corrige {
-  background-color: #ff8800;
-  color: #fff;
-}
-.corrige:hover {
-  background-color: #e67300;
-}
-
-#displayNumero {
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  background: #111;
-  border-radius: 10px;
-}
-
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🏆 Ranking com Perfis – Estrelas do Bimestre</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>VotSis - Votação para Líder de Turma</h1>  <div class="card teclado">
-    <div id="displayNumero">_</div>
-    <button onclick="digitarNumero('1')">1</button>
-    <button onclick="digitarNumero('2')">2</button>
-    <button onclick="digitarNumero('3')">3</button>
-    <button onclick="digitarNumero('4')">4</button>
-    <button onclick="digitarNumero('5')">5</button>
-    <button onclick="digitarNumero('6')">6</button>
-    <button onclick="digitarNumero('7')">7</button>
-    <button onclick="digitarNumero('8')">8</button>
-    <button onclick="digitarNumero('9')">9</button>
-    <button onclick="digitarNumero('0')">0</button><div class="teclado-control">
-  <button class="confirma" onclick="confirmarVoto()">CONFIRMA</button>
-  <button class="branco" onclick="votoBranco()">BRANCO</button>
-  <button class="corrige" onclick="corrigir()">CORRIGE</button>
-</div>
+  <h1>Ranking com Perfis</h1>
+  <p class="subtitulo">Brilhe com esforço e dedicação! ✨</p>
 
-  </div>  <div class="card result" id="resultado"></div>  <script>
-    let votos = {
-      Ycaro: 0,
-      Hiel: 0
-    };
-    let numeroDigitado = '';
-    const candidatosArray = Object.keys(votos);
+  <div id="ranking-container"></div>
 
-    function mostrarResultado() {
-      const totalVotos = Object.values(votos).reduce((a, b) => a + b, 0);
-      let resultadoHTML = '<strong>Estatísticas da Votação:</strong><br>';
+  <footer>
+    Pensado por Ycaro Miguel, Hiel Alves e equipe 
+    &copy; 2025, Estrelas do Bimestre
+  </footer>
 
-      for (let candidato in votos) {
-        const porcentagem = totalVotos > 0 ? ((votos[candidato] / totalVotos) * 100).toFixed(1) : 0;
-        resultadoHTML += `${candidato}: ${votos[candidato]} voto(s) - ${porcentagem}%<br>`;
-      }
-
-      resultadoHTML += `<br><strong>Total de votos:</strong> ${totalVotos}`;
-      document.getElementById('resultado').innerHTML = resultadoHTML;
-    }
-
-    function digitarNumero(n) {
-      if (numeroDigitado.length < 2) {
-        numeroDigitado += n;
-        atualizarDisplay();
-      }
-    }
-
-    function atualizarDisplay() {
-      document.getElementById('displayNumero').textContent = numeroDigitado || '_';
-    }
-
-    function corrigir() {
-      numeroDigitado = '';
-      atualizarDisplay();
-    }
-
-    function votoBranco() {
-      alert('Voto em BRANCO computado.');
-      corrigir();
-    }
-
-    function confirmarVoto() {
-      const index = parseInt(numeroDigitado) - 1;
-      const candidato = candidatosArray[index];
-      if (candidato) {
-        votos[candidato]++;
-        alert(`Voto computado para ${candidato}`);
-        mostrarResultado();
-      } else {
-        alert('Número inválido.');
-      }
-      corrigir();
-    }
-
-    mostrarResultado();
-  </script></body>
+  <script src="script.js"></script>
+</body>
 </html>
