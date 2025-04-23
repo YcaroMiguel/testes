@@ -3,19 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🏆 Ranking com Perfis – Estrelas do Bimestre</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>🏆 Ranking - Estrelas do Bimestre</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Ranking com Perfis</h1>
-  <p class="subtitulo">Brilhe com esforço e dedicação! ✨</p>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Menu</h2>
+      <ul>
+        <li><a href="pontuacao.html">Tabela de Pontuação</a></li>
+        <li><a href="#" class="active">Ranking</a></li>
+        <li><a href="configuracoes.html">Configurações</a></li>
+      </ul>
+    </aside>
 
-  <div id="ranking-container"></div>
+    <main>
+      <h1>Ranking</h1>
+      <p class="subtitulo">Brilhe com esforço e dedicação! Qualquer um pode ganhar, basta o fazer!✨</p>
 
-  <footer>
-    Pensado por Ycaro Miguel, Hiel Alves e equipe 
-    &copy; 2025, Estrelas do Bimestre
-  </footer>
+      <div class="ranking-perfil">
+        <table id="ranking-table">
+          <thead>
+            <tr>
+              <th>Ranking</th>
+              <th>Nome</th>
+              <th>Pontos</th>
+            </tr>
+          </thead>
+          <tbody id="ranking-body">
+            <!-- Exemplo: preenchido pelo JS -->
+          </tbody>
+        </table>
+
+        <div id="perfil-box" class="perfil-box">
+          <h2>Selecione um aluno</h2>
+          <div id="perfil-conteudo"></div>
+        </div>
+      </div>
+
+      <footer>
+        Pensado por Ycaro Miguel, Hiel Alves e equipe &copy; 2025, Estrelas do Bimestre
+      </footer>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
