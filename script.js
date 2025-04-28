@@ -5,13 +5,13 @@ window.onload = () => {
     }, 3000);
 };
 
-// Array com frases inspiradas na série
+// Array com frases inspiradas em Round 6
 const frases = [
     "Aqui pelo menos tenho uma chance. Mas lá fora? Não tenho nada lá fora.",
-    "Não importa o quanto sejamos fortes, não podemos vencer aqui sozinhos.",
+    "Não importa o quanto seja forte, não pode vencer aqui sozinha.",
     "Nós só criamos o jogo. Participar foi escolha de vocês.",
-    "Você também acha que pode mudar o mundo?",
-    "Seja bem-vindo de volta ao jogo."
+    "Você também acha que é um herói que pode mudar o mundo?",
+    "Jogador 456, seja bem-vindo de volta ao jogo."
 ];
 
 // Função que exibe uma frase aleatória durante o carregamento
