@@ -1,52 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🏆 Ranking - Estrelas do Bimestre</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ranking - Estrelas do Bimestre</title>
+    <link rel="stylesheet" href="rating.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <aside class="sidebar">
-      <h2>Menu</h2>
-      <ul>
-        <li><a href="pontuacao.html">Tabela de Pontuação</a></li>
-        <li><a href="#" class="active">Ranking</a></li>
-        <li><a href="configuracoes.html">Configurações</a></li>
-      </ul>
-    </aside>
 
-    <main>
-      <h1>Ranking</h1>
-      <p class="subtitulo">Brilhe com esforço e dedicação! Qualquer um pode ganhar, basta o fazer!✨</p>
-
-      <div class="ranking-perfil">
-        <table id="ranking-table">
-          <thead>
-            <tr>
-              <th>Ranking</th>
-              <th>Nome</th>
-              <th>Pontos</th>
-            </tr>
-          </thead>
-          <tbody id="ranking-body">
-            <!-- Exemplo: preenchido pelo JS -->
-          </tbody>
-        </table>
-
-        <div id="perfil-box" class="perfil-box">
-          <h2>Selecione um aluno</h2>
-          <div id="perfil-conteudo"></div>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="loader"></div>
+            <p class="preloader-text"></p>
         </div>
-      </div>
+    </div>
 
-      <footer>
-        Pensado por Ycaro Miguel, Hiel Alves e equipe &copy; 2025, Estrelas do Bimestre
-      </footer>
+    <!-- Main Content -->
+    <main class="main-content">
+        <header>
+            <h1>Ranking - Estrelas do Bimestre</h1>
+            <p id="player-count"></p>
+        </header>
+
+        <section class="ranking-container">
+            <div class="ratings"></div>
+        </section>
     </main>
-  </div>
 
-  <script src="script.js"></script>
+    <script src="rating.js"></script>
 </body>
 </html>
