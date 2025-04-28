@@ -3,42 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ranking - Estrelas do Bimestre</title>
-    <link rel="stylesheet" href="rating.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <title>Ranking Estrelas do Bimestre</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="preloader">
+        <div class="spinner"></div>
+        <p></p> <!-- Frases de carregamento aparecerão aqui -->
+    </div>
 
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="preloader-content">
-            <div class="shape-triangle"></div>
-            <div class="shape-square"></div>
-            <div class="shape-circle"></div>
-            <p class="preloader-text">Carregando...</p>
+    <div class="container">
+        <header>
+            <h1>Estrelas do Bimestre - Ranking</h1>
+            <p>"A única regra é que não há regras..."</p>
+        </header>
+
+        <div class="ranking">
+            <div class="category">
+                <h2>Prêmio Albert Einstein - Melhores Notas</h2>
+                <div class="ranking-table">
+                    <!-- Aqui aparecem os alunos com a melhor média -->
+                </div>
+            </div>
+
+            <div class="category">
+                <h2>Prêmio Steve Jobs - Aluno Mais Criativo</h2>
+                <div class="ranking-table">
+                    <!-- Aqui aparecem os alunos mais criativos -->
+                </div>
+            </div>
+
+            <div class="category">
+                <h2>Comportados - Mais Quietos</h2>
+                <div class="ranking-table">
+                    <!-- Aqui aparecem os alunos mais comportados -->
+                </div>
+            </div>
+
+            <div class="category">
+                <h2>Prêmio "No Pain, No Gain" - Mais Dedicado</h2>
+                <div class="ranking-table">
+                    <!-- Aqui aparecem os alunos mais dedicados -->
+                </div>
+            </div>
+
+            <div class="category">
+                <h2>Grupo Vencedor</h2>
+                <div class="ranking-table">
+                    <!-- Aqui aparecem os grupos vencedores -->
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <header>
-            <h1>Ranking - Estrelas do Bimestre</h1>
-            <p id="player-count"></p>
-        </header>
+    <footer>
+        <p>Estrelas do Bimestre - Uma competição épica!</p>
+    </footer>
 
-        <!-- Slider de Fotos -->
-        <section class="slider-container">
-            <div class="slider">
-                <!-- Cada imagem dos alunos será colocada aqui -->
-            </div>
-        </section>
-
-        <section class="ranking-container">
-            <div class="ratings"></div>
-        </section>
-    </main>
-
-    <script src="rating.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
