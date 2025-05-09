@@ -89,3 +89,12 @@ footer {
   font-size: 0.95rem;
   color: #aaa;
 }
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #333;
+}
