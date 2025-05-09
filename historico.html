@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Histórico de Apontamentos</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .hist-container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 16px;
+      text-align: left;
+    }
+
+    .hist-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hist-container">
+    <h2 id="titulo">Histórico de Apontamentos</h2>
+    <ul id="lista-apontamentos"></ul>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const nome = urlParams.get("nome");
+
+    const apontamentos = {
+      "Sury de França": ["Notificação pela prof. Yasminie (inglês)"],
+      "Matheus Vitor": ["Notificação pela prof. Yasminie (inglês)"],
+      "Isabelly Lins": ["Notificação pela prof. Yasminie (inglês)"],
+      "Ana Sophia": ["Notificação pela prof. Yasminie (inglês)"],
+      "Allanna Gabrielly": ["Ajudou algum colega"],
+      "Hiel Alves": ["Ajudou algum colega"],
+      "Ycaro Miguel": ["Ajudou algum colega"],
+      "Felipe de Melo": ["Falta sem justificativa"],
+      "Kaira Vitória (NP)": ["Falta sem justificativa"]
+    };
+
+    document.getElementById("titulo").textContent = `Histórico de ${nome}`;
+    const lista = document.getElementById("lista-apontamentos");
+
+    if (apontamentos[nome]) {
+      apontamentos[nome].forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        lista.appendChild(li);
+      });
+    } else {
+      const li = document.createElement("li");
+      li.textContent = "Sem registros recentes.";
+      lista.appendChild(li);
+    }
+  </script>
+</body>
+</html>
