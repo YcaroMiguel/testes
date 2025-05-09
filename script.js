@@ -53,7 +53,7 @@ function atualizarRanking() {
 
     tr.innerHTML = `
       <td>${index + 1}</td>
-      <td>${medalha ? `<span class="medal">${medalha}</span>` : ""}${aluno.nome}</td>
+      <td><a href="historico.html?nome=${encodeURIComponent(aluno.nome)}" target="_blank">${medalha ? `<span class="medal">${medalha}</span>` : ""}${aluno.nome}</a></td>
       <td>${aluno.pontos}</td>
     `;
     tbody.appendChild(tr);
