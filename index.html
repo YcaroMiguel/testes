@@ -1,65 +1,40 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking Estrelas do Bimestre</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ranking - Estrelas do Bimestre</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="preloader">
-        <div class="spinner"></div>
-        <p></p> <!-- Frases de carregamento aparecerão aqui -->
-    </div>
+  <h1>Ranking - Estrelas do Bimestre</h1>
+  <p class="subtitulo">Atualizado automaticamente com base nos apontamentos</p>
 
-    <div class="container">
-        <header>
-            <h1>Estrelas do Bimestre - Ranking</h1>
-            <p>"A única regra é que não há regras..."</p>
-        </header>
+  <table>
+    <thead>
+      <tr>
+        <th>Posição</th>
+        <th>Nome</th>
+        <th>Pontos</th>
+      </tr>
+    </thead>
+    <tbody id="ranking-body">
+      <tr><td>1</td><td>Ycaro</td><td>10</td></tr>
+      <tr><td>2</td><td>Hiel</td><td>9</td></tr>
+      <tr><td>3</td><td>Isabelly</td><td>8</td></tr>
+      <tr><td>4</td><td>Matheus</td><td>8</td></tr>
+      <tr><td>5</td><td>Felipe</td><td>7</td></tr>
+      <tr><td>6</td><td>Ana Sophia</td><td>7</td></tr>
+      <tr><td>7</td><td>Sury</td><td>6</td></tr>
+      <tr><td>8</td><td>Kaira</td><td>5</td></tr>
+      <tr><td>9</td><td>Allana</td><td>4</td></tr>
+    </tbody>
+  </table>
 
-        <div class="ranking">
-            <div class="category">
-                <h2>Prêmio Albert Einstein - Melhores Notas</h2>
-                <div class="ranking-table">
-                    <!-- Aqui aparecem os alunos com a melhor média -->
-                </div>
-            </div>
+  <footer>
+    Desenvolvido para o 8º AT - Projeto Estrelas do Bimestre
+  </footer>
 
-            <div class="category">
-                <h2>Prêmio Steve Jobs - Aluno Mais Criativo</h2>
-                <div class="ranking-table">
-                    <!-- Aqui aparecem os alunos mais criativos -->
-                </div>
-            </div>
-
-            <div class="category">
-                <h2>Comportados - Mais Quietos</h2>
-                <div class="ranking-table">
-                    <!-- Aqui aparecem os alunos mais comportados -->
-                </div>
-            </div>
-
-            <div class="category">
-                <h2>Prêmio "No Pain, No Gain" - Mais Dedicado</h2>
-                <div class="ranking-table">
-                    <!-- Aqui aparecem os alunos mais dedicados -->
-                </div>
-            </div>
-
-            <div class="category">
-                <h2>Grupo Vencedor</h2>
-                <div class="ranking-table">
-                    <!-- Aqui aparecem os grupos vencedores -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>Estrelas do Bimestre - Uma competição épica!</p>
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
